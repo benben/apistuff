@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require "rubygems"
 require "active_record"
 require "mysql"
@@ -18,6 +20,7 @@ t.each do |n|
 	str = "Company.create("
 	str << ":old_id => #{j['id']}, " if j['id']
 	str << ":main_branch => Branch.find_by_internal_key('#{j['Hauptbranche']}'), " unless j['Hauptbranche'].empty? if j['Hauptbranche']
+	str << ":sub_market => Branch.find_by_internal_key('#{j['MkwTeilmarkt']}'), " unless j['MkwTeilmarkt'].empty? if j['MkwTeilmarkt']
 	if j['Name']
 	unless j['Name'].empty?
 		j['Name'].gsub!("'", "\\'")
@@ -36,10 +39,19 @@ t.each do |n|
 	else
 		j['HausnummerZusatz'] = $' + " " + j['HausnummerZusatz'] unless $'.nil?
 	end
+
 	str << ":housenumber_additional => '#{j['HausnummerZusatz']}', " unless j['HausnummerZusatz'].empty? if j['HausnummerZusatz']
 	str << ":postcode => '#{j['Plz']}', " unless j['Plz'].empty? if j['Plz']
 	str << ":city => '#{j['Ort']}', " unless j['Ort'].empty? if j['Ort']
-	str << ":phone_primary => '#{j['Tel1']}', " unless j['Tel1'].empty? if j['Tel1']
+	if j['Tel1']
+		unless j['Tel1'].empty?
+				j['Tel1'].lstrip!
+				j['Tel1'] = "+" + j['Tel1'] if j['Tel1'][0] != "+"
+				
+				str << ":phone_primary => '#{j['Tel1']}', " 
+		end
+	end
+
 	str << ":phone_secondary => '#{j['Tel2']}', " unless j['Tel2'].empty? if j['Tel2']
 	str << ":mobile_primary => '#{j['Mobil1']}', " unless j['Mobil1'].empty? if j['Mobil1']
 	str << ":mobile_secondary => '#{j['Mobil2']}', " unless j['Mobil2'].empty? if j['Mobil2']

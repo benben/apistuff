@@ -30,7 +30,7 @@ doc.search('tr').each do |i|
 	end
 	b << a[3]
 	# Branch.create(:parent_id => 1, :cluster_id => 1, :internal_key => "1A", :name => "Interaktive Medien", :description => "Ganz tolle Interaktionen möglich.")
-	puts "Branch.create(:parent_id => Branch.find_by_name('Cluster Medien & Kreativwirtschaft').id, :internal_key => '#{a[2]}', :name => '#{a[3]}', :internal_type => 'branch')"
+	puts "Branch.create(:parent_id => Branch.find_by_name('Cluster Medien & Kreativwirtschaft').id, :internal_key => '#{a[2]}', :name => '#{a[3]}', :internal_type => 'main_branch')"
 	#puts "-------------------"
 end
 
