@@ -20,17 +20,18 @@
 echo "cloning all repositories..."
 git clone git@github.com:benben/frontend.git api/
 cd api/
-git clone git@github.com:benben/panel.git
 git clone git@github.com:benben/api.git
+git clone git@github.com:benben/panel.git
 git clone git@github.com:benben/instiki.git wiki/
 
+
 echo "bundle everything..."
-cd panel
-bundle
-cd ../api
-bundle
+cd api/
+bundle --without production
+cd ../panel
+bundle --without production
 cd ../wiki
-bundle
+bundle --without production
 cd ..
 
 echo "generating dev files for the api..."
