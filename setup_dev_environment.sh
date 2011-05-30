@@ -48,6 +48,7 @@ echo -e "development:\n  adapter: sqlite3\n  database: ../api/db/development.sql
 cd ..
 cp -R css/ panel/public/css
 cp -R js/ panel/public/js
+mkdir -p panel/public/images
 cp -R images/* panel/public/images/
 
 echo "generating dev files for the wiki..."
